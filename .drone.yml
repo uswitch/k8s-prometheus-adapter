@@ -1,0 +1,17 @@
+---
+workspace:
+  base: /go
+  path: src/github.com/directxman12/k8s-prometheus-adapter
+
+pipeline:
+  build_binary:
+    image: golang:1.8
+    commands:
+    - mkdir -p /go/bin
+    - "curl -s https://glide.sh/get | sh"
+    - make build
+
+  docker-latest:
+    image: plugins/docker
+    repo: registry.usw.co/cloud/k8s-prometheus-adapter
+    tags: [ "v.1.8" ]
